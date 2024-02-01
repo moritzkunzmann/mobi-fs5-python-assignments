@@ -67,7 +67,7 @@ clf = make_pipeline(StandardScaler(), \
     \end{enumerate}
     Afterwards, test your implementation for the image \texttt{dna-0.png}. You can use the pre-implemented function \texttt{blend\_result} to visualize the segmentation results:
 \begin{Verbatim}[frame=single]
-figure()
+plt.figure()
 img = plt.imread(f'../data/NIH3T3/im/dna-0.png')
 seg = predict_image(img)
 imshow(blend_result(img, seg))
