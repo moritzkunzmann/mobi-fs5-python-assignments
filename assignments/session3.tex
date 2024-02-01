@@ -31,13 +31,13 @@ phase = np.angle(cell_ft)
     \end{Verbatim}
     Display them side by side using the following code:
     \begin{Verbatim}[frame=single]
-figure()
-subplot(1, 2, 1)
-imshow(np.log(amplitude), 'gray')
-subplot(1, 2, 2)
-imshow(phase, 'gray')
+plt.figure()
+plt.subplot(1, 2, 1)
+plt.imshow(np.log(amplitude), 'gray')
+plt.subplot(1, 2, 2)
+plt.imshow(phase, 'gray')
     \end{Verbatim}
-    \textbf{Hints:} The function \texttt{subplot} adds a new subplot with the three parameters \textit{(i)} total number of rows, \textit{(ii)} total number of columns, and \textit{(iii)} at which position to place the image. Furthermore, show the \emph{logarithm} of the amplitude for better visibility of the huge range of values.
+    \textbf{Hints:} The function \texttt{plt.subplot} adds a new subplot with the three parameters \textit{(i)} total number of rows, \textit{(ii)} total number of columns, and \textit{(iii)} at which position to place the image. Furthermore, show the \emph{logarithm} of the amplitude for better visibility of the huge range of values.
     \item Now, shift the zero components to the center of the spectral image using \texttt{np.fft.fftshift(cell\_ft)}. Extract and show amplitude and phase again.
     \item Restore the image using the \emph{inverse} fast Fourier transform (IFFT) by using the function \texttt{np.fft.ifft2} and show the restored image. The IFFT will also return a complex array. However, since the original image contains only \emph{real} numbers, the restored image can be accessed using the real values of the array. Please note, if you did a shift in the Fourier domain, you have to reverse this first with \texttt{np.fft.ifftshift} before applying the IFFT.
 \end{enumerate}
