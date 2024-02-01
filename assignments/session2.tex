@@ -1,0 +1,69 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{preamble}
+\usepackage{graphicx}
+\usepackage{fancyvrb}
+\usepackage[bottom]{footmisc}
+\newcommand\sessiontitle{Lab Session 2}
+\newcommand\sessionsubtitle{Segmentation via Otsu thresholding}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\section{Otsu thresholding}
+\label{task:otsu}
+
+Open the notebook \texttt{otsu.ipynb} and extend it as follows:
+
+\begin{enumerate}
+    \item Load the image from: \texttt{imgf = imread('../data/NIH3T3/im/dna-0.png')}.\\ The intensities of this image range from 0 to 1.
+    \item Quantize the image into 256 bins:
+\begin{Verbatim}[frame=single]
+img8 = (imgf * 255).round().astype(numpy.uint8)
+\end{Verbatim}
+    \item Compute the histogram \texttt{h} of \texttt{img8} such that, for example, \texttt{h[0]} corresponds to the number of image pixels with intensity 0 and \texttt{h[255]} corresponds to the number of image pixels with intensity 255 -- \textbf{Hint:} ``\texttt{img8 == i}'' yields a binary image, which corresponds to the set of all points with intensity \texttt{i}.
+    
+    \textbf{Note:} Do \emph{not} use pre-defined functions like \texttt{hist} or \texttt{plt.hist}, but implement the computation of the histogram \emph{yourself}. To accomplish that, the occurrences of the different intensity values in the image \texttt{img8} must be \emph{counted}. For counting, \texttt{h} should be initialized as a \emph{flat} array with 256 entries (e.g., ``\texttt{numpy.zeros(256)}'').
+    
+    After counting, \texttt{h} corresponds to the histogram of \texttt{img8}, and the code below can be used to show the histogram:
+\begin{Verbatim}[frame=single]
+figure(figsize=(14,5))
+bar(range(256), h, width=1)
+\end{Verbatim}
+    \item Compute the optimal intensity threshold $T$ by implementing the \textbf{method of Otsu},
+    \begin{gather}
+        \min_{T = 1 \dots 255} n_1\left(T\right) \cdot \sigma_1^2\left(T\right) + n_2\left(T\right) \cdot \sigma_2^2\left(T\right),
+    \end{gather}
+    where $n_i$ is the number of pixels and $\sigma_i^2$ is the intensity variance within the $i$-th class. Assume that the two classes are given by the intensities $\left[0, T - 1\right]$ and $\left[T, 255\right]$. \textbf{Also consider the following hints}:
+    \begin{enumerate}
+        \item The empirical variance of \texttt{values} is obtained by \texttt{var(values)}.
+        \item The intensity variance $\sigma_i^2$ can be computed either using \textit{(i)} the image intensities \texttt{img8} directly or \textit{(ii)} the histogram \texttt{h} and the formulas from the lecture.
+    \end{enumerate}
+    \item Compute the segmentation of the loaded image using \textbf{Otsu thresholding} (i.e.\ use the optimal intensity threshold $T$ to perform intensity thresholding).
+    \item Evaluate the segmentation result using the Dice coefficient.
+\end{enumerate}
+
+\begin{samepage}
+\section{Batch processing}
+\label{task:otsu_batch}
+
+Open the notebook \texttt{otsu\_batch.ipynb} and extend it as follows:
+
+\begin{enumerate}
+    \item In the previous task, you have implemented the method of Otsu and performed Otsu thresholding for a single image. Now, make this code \emph{re-usable} by putting it into a \emph{function} which you can use anytime later. For your convenience, a skeleton of the code you need to write to implement the function is already added to the notebook.
+    \item Implement a re-usable function to compute the Dice coefficient using the skeleton in the notebook.
+    \item Test your implementations by using the two functions to perform Otsu thresholding of the image \texttt{'../data/NIH3T3/im/dna-0.png'} and compute the corresponding Dice coefficient. \emph{The Dice coefficient should be the same as in Task~\ref{task:otsu}!} If it is not, look for a mistake you have made and fix it.
+
+    \textbf{Note:} The function ``\texttt{compute\_dice}'' takes two parameters, which must correspond to \emph{binary} images. If you encounter an \texttt{AssertionError} in this function, one of the images used as the parameters of the function is not binary. You can use the method ``\texttt{.astype(bool)}'' to obtain a binary representation of an image.
+    
+    \item Write a \texttt{for}-loop which iterates the sequence $\texttt{i} = 28,29,33,44,46,49$ and
+    \begin{enumerate}
+        \item loads the $\texttt{i}$-th image via \texttt{imread(f'../data/NIH3T3/im/dna-\{i\}.png')},
+        \item loads the corresponding ground truth from \texttt{f'../data/NIH3T3/gt/\{i\}.png'},
+        \item performs Otsu thresholding,
+        \item computes the Dice coefficient of the segmentation result.
+    \end{enumerate}
+    The Dice coefficient should be printed for each image. In addition, compute and print the mean Dice coefficient for all images.
+\end{enumerate}
+\end{samepage}
+
+\end{document}

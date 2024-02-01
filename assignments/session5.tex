@@ -1,0 +1,102 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{preamble}
+\usepackage{graphicx}
+\usepackage{fancyvrb}
+\usepackage[bottom]{footmisc}
+\newcommand\sessiontitle{Bonus Tasks}
+\newcommand\sessionsubtitle{Segmentation by texture classification}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\section{Patch-based segmentation}
+\label{task:svm_segm}
+
+In this assignment, you will implement segmentation using a machine learning approach. To this end, an image is first subdivided into a equisized grid of patches. Then, a classifier is used to decide for each image patch, whether that image patch corresponds to an object or the image background. More formally, the \textbf{decision function}
+\begin{gather*}
+    f : \mathbb R^{n^2} \to \left\{-1,+1\right\}
+\end{gather*}
+maps the image intensities from an $n \times n$ image region to a \textbf{label}, which represents image background ($-1$) or image foreground ($+1$), respectively. We implement the function $f$ using a \textbf{support vector machine} (SVM) based on Gaussian kernels.
+
+One part of the assignment is the \textbf{training} of the SVM using pre-annotated ground truth image data. The SVM is trained by supplying a \textbf{data matrix} $X \in \mathbb R^{m \times n^2}$ and a corresponding ground truth vector of labels $y \in \left\{-1,+1\right\}^m$,
+\begin{gather*}
+    X = \begin{bmatrix}
+        x_1 \\
+        \vdots \\
+        x_m
+    \end{bmatrix}, \qquad
+    y = \begin{bmatrix}
+        y_1 \\
+        \vdots \\
+        y_m
+    \end{bmatrix},
+\end{gather*}
+where each row of the data matrix corresponds to the image intensities from an image patch (squeezed into a row vector). The image patch $x_k$ is associated with the corresponding ground truth label $y_k$ by the index $k \in \left[m\right]$.
+
+In the other part of the assignment, the SVM is queried to compute the \textbf{prediction} $f\left(x\right)$ for image patches $x \in \mathbb R^{n^2}$. Instead of computing the prediction for only a single image patch, it is convenient to predict the labels
+\begin{gather*}
+    F\left(X\right) = \begin{bmatrix}
+        f\left(x_1\right) \\
+        \vdots \\
+        f\left(x_m\right) \\
+    \end{bmatrix},
+\end{gather*}
+for multiple image patches at once (where the image patches are arranged in a data matrix $X \in \mathbb R^{m \times n^2}$). We use the SVM implementation from scikit-learn\footnote{\url{https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html}} and patches of the size $32 \times 32$ pixels (i.e.\ $n = 32$).
+
+Open the notebook \texttt{svm\_segm.ipynb} and extend it as follows:
+\begin{enumerate}
+    \item Implement the function \texttt{create\_data\_matrix}, which takes an image as the parameter, creates the corresponding data matrix $X$ for that image, and returns the data matrix -- \textbf{Hint:} Loops \emph{can} be avoided by using the function \texttt{view\_as\_blocks}\footnote{\mbox{\url{https://scikit-image.org/docs/dev/api/skimage.util.html\#skimage.util.view\_as\_blocks}}} from the \texttt{skimage.util} module.
+    \item Implement the function \texttt{create\_gt\_labels\_vector}, which takes a binary image as the parameter (the ground truth segmentation), creates the vector of labels $y$, and returns that vector. The implementation is analogous to \texttt{create\_data\_matrix}: If the area of the ground truth image corresponding to an image patch contains more than 50\% foreground, assign the label $+1$ to that image patch. If that area contains no foreground, assign the label $-1$. Otherwise, assign the label $0$ (see below).
+    \item Create the SVM classifier ``\texttt{clf}'' using the following code:
+\begin{Verbatim}[frame=single]
+clf = make_pipeline(StandardScaler(), \
+                    SVC(class_weight='balanced', gamma=0.1))
+\end{Verbatim}
+    Now it is time to train the classifier:
+    \begin{enumerate}
+        \item Using the function \texttt{create\_data\_matrix} implemented before, generate the data matrices for the two images \texttt{../data/NIH3T3/im/dna-33.png} and \texttt{dna-44.png}.
+        \item Use \texttt{create\_gt\_labels\_vector} to generate the label vectors based on the corresponding ground truth images \texttt{../data/NIH3T3/gt/33.png} and \texttt{44.png}.
+        \item Stack the two data matrices and the two corresponding label vectors, but only keeping those rows of the data matrices and the label vectors, where the corresponding label is $-1$ or $+1$ (i.e.\ discard rows where the label is $0$) -- \textbf{Hint:} You can use \texttt{numpy.concatenate}\footnote{\mbox{\url{https://numpy.org/doc/stable/reference/generated/numpy.concatenate.html}}} to perform the stacking.
+        \item Use ``\texttt{clf.fit(X, Y)}'' to train the classifier, where \texttt{X} is the stacked data matrix and \texttt{Y} is the stacked label vector. The duration of the training depends on your computer, but should be complete within a few seconds.
+    \end{enumerate}
+    \item Implement the function \texttt{predict\_image}, which takes an image as the parameter and performs segmentation using the trained classifier \texttt{clf}. To this end, the function
+    \begin{enumerate}
+        \item uses \texttt{create\_data\_matrix} to obtain the data matrix \texttt{X} for the given image,
+        \item uses \texttt{clf.predict(X)} to obtain the predicted label vector $F\left(\texttt{X}\right)$,
+        \item creates a binary image \texttt{result}, where patches corresponding to the predicted label $+1$ are set to \texttt{True} and to \texttt{False} otherwise, and returns it.
+    \end{enumerate}
+    Afterwards, test your implementation for the image \texttt{dna-0.png}. You can use the pre-implemented function \texttt{blend\_result} to visualize the segmentation results:
+\begin{Verbatim}[frame=single]
+figure()
+img = imread(f'../data/NIH3T3/im/dna-0.png')
+seg = predict_image(img)
+imshow(blend_result(img, seg))
+\end{Verbatim}
+
+    \begin{samepage}
+    \item Write a \texttt{for}-loop which iterates the sequence $\texttt{i} = 28,29,33,44,46,49$ and
+    \begin{enumerate}
+        \item loads the $\texttt{i}$-th image via \texttt{imread(f'../data/NIH3T3/im/dna-\{i\}.png')},
+        \item loads the corresponding ground truth from \texttt{f'../data/NIH3T3/gt/\{i\}.png'},
+        \item performs patch-based segmentation by using the function \texttt{predict\_image},
+        \item computes the Dice coefficient of the segmentation result.
+    \end{enumerate}
+    The Dice coefficient should be printed for each image. In addition, compute and print the mean Dice coefficient for all images.
+    \item Compare the results to those from Otsu thresholding.
+    \end{samepage}
+\end{enumerate}
+
+\begin{samepage}
+\section{Improving the segmentation performance}
+\label{task:svm_segm_semantic}
+
+Improve the segmentation performance. Here are some ideas:
+\begin{enumerate}
+    \item The segmentation accuracy of the segmentation approach you have implemented above is limited by the size of the patches. Although larger patches are capable of capturing more information, they also lead to a loss of accuracy since the image is subdivided more coarsely. This can be improved by using \emph{overlapping} patches, which are commonly known as a \emph{sliding window}. You can use \texttt{view\_as\_windows}\footnote{\mbox{\url{https://scikit-image.org/docs/dev/api/skimage.util.html\#skimage.util.view\_as\_windows}}} from the \texttt{skimage.util} module instead of \texttt{view\_as\_blocks}.
+    \item Incorporate pre-processing of the image data (e.g., classify filter responses instead of the raw image intensities, or use principal component analysis to reduce the dimensionality of the data under classification).
+    \item Incorporate other image features (e.g., Histograms of Gaussians\footnote{\mbox{\url{https://scikit-image.org/docs/dev/api/skimage.feature.html\#skimage.feature.hog}}}).
+    \item Be creative and try out different possibilities.
+\end{enumerate}
+\end{samepage}
+
+\end{document}

@@ -1,0 +1,35 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{preamble}
+\usepackage{graphicx}
+\usepackage{fancyvrb}
+\usepackage[bottom]{footmisc}
+\newcommand\sessiontitle{Lab Session 4}
+\newcommand\sessionsubtitle{Deconvolution}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+%\section{Deconvolution}
+%\label{task:deconvolution}
+
+\noindent
+Open the notebook \texttt{deconvolution.ipynb} and extend it as follows:
+
+\begin{enumerate}
+    \item Load the image in the notebook and apply the given uniform point spread function (PSF) by using the function \texttt{scipy.signal.convolve(img, psf, 'same')} which is already imported as ''conv''. Display the resulting image.
+    \item The notebook also contains a Gaussian PSF. Apply the Gaussian PSF to the original image and observe the differences in comparison to using the uniform PSF.
+    \item Implement the Richardson-Lucy (R-L) deconvolution as a re-usable function (for your convenience, the notebook already contains a skeleton which you can use). The R-L deconvolution is an iterative process with the step
+    \begin{gather}
+        h^{(t+1)} = h^{(t)} \cdot \Big(\frac{g}{h^{(t)} \ast P} \ast P^*\Big),
+        \label{eq:rl}
+    \end{gather}
+    where $g$ is the input image to the algorithm, $h$ is the deconvolved image, which is initialized as an array of the same \texttt{shape} as the image, filled with constant value $0.5$. $P$ is the PSF and $P^*$ is the flipped PSF. You can flip it using the \texttt{numpy.flip} function. The operator ``$\ast$'' corresponds to the convolution operation for which you can use the ''\texttt{conv}'' function from Task~1. again.
+    \par\textbf{Hint:} The indices $t$ and $t+1$ written in parentheses and superscript in Eq.~\eqref{eq:rl} are not exponents, but numbers of iterations, i.e.\ $h^{(t)}$ denotes $h$ at iteration $t$ and $h^{(t+1)}$ denotes $h$ at iteration $t+1$.
+    \item Use your R-L implementation to restore the original image, which was blurred by the first PSF. Display the original, the blurred, and the restored image side by side. Try different values for the number of iterations for the R-L algorithm.
+    \item Add white noise to the blurred image (the image generated in Task~2) as an additive component (the white noise is already generated in the notebook). Show the result of the algorithm as before. Try a different noise level by changing the variable \texttt{reduce\_factor} (larger values correspond to lower noise levels).
+    \item Compare your R-L implementation to the Wiener deconvolution, which you can use by \texttt{wiener(img\_psf, psf, balance=2, clip=True)}. The corresponding function \texttt{wiener} is pre-implemented. Display the original image beside the R-L reconstruction and the Wiener reconstruction. -- \textbf{Hint:} You can try different values for the parameter \texttt{balance} to achieve better results.
+    \item Repeat the previous tasks using a smaller value for the size of the PSF (e.g., 10).
+    \item Try using a ``wrong'' PSF for the R-L deconvolution and observe the impact. Display both, the R-L reconstruction using the \emph{uniform} PSF for the image blurred with the \emph{Gaussian} PSF, and the other way round.
+\end{enumerate}
+
+\end{document}
