@@ -1,6 +1,6 @@
 [![Build assignemnts.pdf document](https://github.com/BMCV/mobi-fs5-python-assignments/actions/workflows/build_assignments.yml/badge.svg)](https://github.com/BMCV/mobi-fs5-python-assignments/actions/workflows/build_assignments.yml)
 
-# [Methoden der Bioinformatik 5. FS,<br>Vertiefungspraktikum Python Standard: Assignments]()
+# [Bioinformatik 5. FS,<br>Vertiefungspraktikum Python Standard: Assignments]()
 
 **Steps to update the assignments:**
 1. Fork this repository
