@@ -5,74 +5,76 @@
 \let\Alt=\relax
 \usepackage{menukeys}
 \newcommand\sessiontitle{Introduction}
-\newcommand\sessionsubtitle{Getting started}
+\newcommand\sessionsubtitle{Preparations for the Second Week}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 %\linenumbers
 
+\begin{sloppypar}
 \begin{description}
-\item[Course web-page:] \begin{sloppypar}\url{http://www.bioquant.uni-heidelberg.de/research/groups/biomedical-computer-vision/teaching/\coursename}\end{sloppypar}
-\item[Opening a terminal on macOS:] Simultaneously press \keystroke{\cmd}+\Spacebar to bring up Spotlight, type ``terminal'', then press \Return.
-\item[Opening a terminal on Linux:] Simultaneously press \Ctrl+\AltKey+\keystroke{T}.
+%\item[Course web-page:]~\\\url{http://www.bioquant.uni-heidelberg.de/research/groups/biomedical-}\\\url{computer-vision/teaching/python}
+\item[Course web-page:]~\\\url{http://www.bioquant.uni-heidelberg.de/research/groups/biomedical-computer-vision/teaching/python}
+\item[Overview of your GitHub Codespaces:] \url{https://github.com/codespaces}
 \end{description}
+\end{sloppypar}
 
-\section{Installation}
-\label{task:installation}
+If working in the BioQuant computer room, please \textbf{use Chrome instead of Firefox} as the web browser, because the installed version of Firefox is known to have issues with GitHub. Using Firefox is fine when working on your personal computer.
 
+\section{Setting up your GitHub repository}
+\label{task:preparation}
 \begin{enumerate}
-\item Mamba is a fast and reliable tool for installation of Conda packages. Mambaforge is a Conda distribution which comes with Mamba out-of-the-box.
-    \begin{description}
-        \item[If you already have Mamba installed on your computer,] proceed to Step~2.
-        \item[If you have no Conda distribution installed yet,] download and install Mamba\-forge from: \url{https://github.com/conda-forge/miniforge#mambaforge}
-        \begin{description}
-            \item[Installation on Windows:] Run the downloaded file. If Windows complains that this is a risky action since the source of the file is unknown, click ``More info'' and then ``Run anyway''. Leave all options on default.
-            \item[Installation on macOS and Linux:] Open a terminal. Inside the terminal, type ``\texttt{cd Downloads}'' and press \Return to change the current directory to where your Downloads are stored by default. Make the downloaded file runnable by typing ``\texttt{chmod +x Mambaforge-*.sh}'' and pressing \Return. Run the downloaded file by typing ``\texttt{sh Mambaforge-*.sh}'' and pressing \Return. Follow the on-screen instructions. When the license is shown, press \Spacebar to turn pages. You will be asked a yes/no-question twice, type ``\texttt{yes}'' both times, and leave all other options on default. When you see the text ``Thank you for installing Mambaforge!'', the installation is finished, and you should close the terminal.
-        \end{description}
-        \item[Otherwise,] install the package ``mamba'' in the ``base'' environment of your Conda distribution, as explained here: \url{https://mamba.readthedocs.io/en/latest/installation.html#existing-conda-install} -- ask a supervisor if you need assistance.
-    \end{description}
-\item Download the course material from the course web-page.
-\item Extract the downloaded course material ZIP file \emph{\underline{\smash{directly}} into your \underline{\smash{Home directory}}}. \underline{\smash{\textbf{\emph{Double-check this!}}}} For example, \textbf{on Windows}, you can find your Home directory by navigating to \texttt{\%userprofile\%} in Explorer:\\[0.5em]
-    \begin{minipage}{\linewidth}
-        \centering
-        \includegraphics[height=35mm]{images/userprofile.png}
-    \end{minipage}
-    
-    After extraction of the course material ZIP file, your Home directory is supposed to look as shown on the left below, and \underline{\smash{\emph{not}}} as shown on the right:\\[0.5em]
-    \begin{minipage}{\linewidth}
-        \includegraphics[width=\linewidth]{images/course-material.png}
-    \end{minipage}
-
-    \textbf{On macOS,} you will usually find the already extracted ``\texttt{{\projectid}}'' directory in your Downloads directory, immediately after the download of the course material is finished. The best practice then is to simply drag the ``\texttt{{\projectid}}'' directory from your Downloads directory to your Home directory in Finder. To find the directories in Finder, simultaneously press \keystroke{\Alt}+\keystroke{\cmd}+\keystroke{L} for the Downloads directory, and \keystroke{\shift}+\keystroke{\cmd}+\keystroke{H} for the Home directory.
-\item Import the Conda environment as follows:
-    \begin{enumerate}
-        \item Open a prompt or terminal, depending on your operating system:
-        \begin{description}
-            \item[On Windows:] Run the ``Miniforge Prompt'' from your Start Menu.
-            \item[On macOS and Linux:] Open a terminal. It is important that you open a \emph{new} terminal here (do \emph{not} use the terminal you used for Step~1).
-        \end{description}
-        \item Inside the prompt/terminal, type ``\texttt{cd {\projectid}}'' and press \Return to change into the directory where you had extracted the course material before.
-        \item Type ``\texttt{mamba env create -f {\ymlfile}}'', then press \Return to start the import procedure.
-    \end{enumerate}
-    
-    Depending on the bandwidth of your internet connection, the import procedure might take several minutes. You may close the prompt/terminal afterwards.
+\item Open the course web-page in any web-browser of your choice.
+\item Click on the link in ``Create a new GitHub repository by using this link''.
+\item This will load another web-page entitled ``Create a new repository''. Leave everything on default and confirm the creation of the repository by clicking the ``Create repository'' button.
+\item You should see a ``Generating your repository'' message for a few seconds and then be presented with an \textbf{overview of your repository}.
 \end{enumerate}
+
+\section{Firing up a GitHub Codespace}
+\label{task:codespaces}
+\begin{enumerate}
+\item Open the \textbf{overview of your repository} on GitHub. This is the web-page that you landed on after completing Task~\ref{task:preparation}.
+\item Click on the green ``Code`'' button, then select the ``Codespaces'' tab.
+\item Click the green ``Create codespace on master'' button. This will load \textbf{VS Code} (Visual Studio Code) inside of your web-browser. Wait until everything is loaded, it may take about one minute.
+\end{enumerate}
+
+\vspace{-1em}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/codespaces.png}
+\end{figure}
+
+\textbf{Note:} If, at any time, \textbf{VS Code} behaves weirdly (e.g., complaining about missing extensions, not loading notebooks, or similar), try to simply reload the \textbf{VS Code} window. To do that, press \Ctrl+\keystroke{\shift}+\keystroke{P} (or \keystroke{\cmd}+\keystroke{\shift}+\keystroke{P} if you are on macOS) and type ``Reload window \Return''. Your work progress will be preserved.
 
 %\newpage
-\section{How to work with Jupyter notebooks}
+\section{Working with VS Code and Jupyter notebooks}
 \label{task:jupyter}
 
-The assignments of this course are organized into several Jupyter notebooks. They are included into the course material ZIP file you downloaded before. By progressing from task to task, you will have to work with different notebooks, so it is important that you know how to open them.
+The left panel of \textbf{VS Code} shows an overview of \textbf{your local repository}. Right now it is identical to your GitHub repository. The assignments of this course are organized into several Jupyter notebooks. These are the "*.ipynb" files that you can see in your repository. By progressing from task to task, you will work with different notebooks (open a notebook by double clicking it).
 
-Lets say, you want to open a notebook \texttt{task.ipynb}, where ``\texttt{task.ipynb}'' is a placeholder which is to be substituted by the actual file name as instructed in the subsequent assignments. To open that notebook, you would proceed as follows:
+In Jupyter notebooks, code cells can be run in an \emph{arbitrary order}. This is very helpful for experimenting and trying out new things. Still, an assignment in this course is \emph{only} considered ``finished'' when the results can be reproduced by re-running all code cells \emph{from top to bottom} by clicking the ``Run all'' button.
+
+\section{Preserving your work progress with Git}
+\label{task:git}
+
+When finished, close your notebook. Changes are saved automatically within \textbf{your local repository}, but remember, that those changes will be lost when you close the codespace, unless you push them to your GitHub repository.
+
+To do that, click on the ``Terminal'' tab at the bottom of \textbf{VS Code}, type the following Git command, and press \Return to execute it:
+\begin{Verbatim}[frame=single]
+git commit --all -m "Finish task 1.3"
+\end{Verbatim}
+The text ``"Finish task 1.3"'' is the \textbf{commit message}, which is arbitrary. Describe what changes you have done since your previous commit.
+
+If you wanted, you could revert to any previous commit at a later time, and choosing an expressive message is convenient for finding the commit which you will be looking for. There also are some conventions for how a \textbf{commit message} should be formatted: It should tell in an ``imperative mood'' and as concisely as possible, what \emph{the committed changes} are supposed to do\footnote{From the official Git documentation: \texttt{https://git.kernel.org/pub/scm/git/git.git/tree\\/Documentation/SubmittingPatches?h=v2.36.1\#n181}}.
+
+If done correctly, the output of the above command should be something like ``1 file changed, 12 insertions(+), 1 deletion(-)'', but the exact numbers may vary.
+
+Finally, type ``"git push"'' and press \Return to \textbf{push the committed changes} to your GitHub repository. If done correctly, there should be multiple lines of output, concluding with a line similar to ``"1d2e403..a387645 master -> master"''.
+
+\section{Create a cheat sheet for the second week}
+Now you already know how to edit, commit, and push a Jupyter notebook.
 \begin{enumerate}
-    \item Run the ``Miniforge Prompt'' or open a terminal (depending on your operating system, as you did in Task~\ref{task:installation}, Step~4a).
-    \item Inside the prompt/terminal, type: ``\texttt{cd {\projectid}}'' and press \Return to change into the course material directory (as you did in Task~\ref{task:installation}, Step~4b).
-    \item Type ``\texttt{conda activate {\projectid}}'' and press \Return to activate the Conda environment you imported before.
-    \item Type ``\texttt{jupyter notebook tasks/task.ipynb}'' and press \Return. Wait a few seconds and you will see that a browser window opens.
-    \item Follow the on-screen instructions -- \textbf{Note:} Jupyter permits running code cells and Markdown cells in an \emph{arbitrary order}. This is very helpful for experimenting and trying out new things. \textbf{Nevertheless, an assignment in this course is \emph{only} considered ``finished'' when the results can be reproduced by re-running all code cells \emph{from top to bottom}!} You can check this easily by choosing ``Restart \& Run All'' from the ``Kernel'' menu of an opened Jupyter notebook.
-    \item When finished, save your notebook (menu ``File'', then ``Save and Checkpoint'') and close the notebook (menu ``File'', then ``Close and Halt'').
-    \item The last step is to shut down the notebook server: Return to your prompt/terminal and simultaneously press \Ctrl+\keystroke{C}. If asked to confirm the shutdown of the notebook server, press \keystroke{Y}\Return subsequently.
+    \item In preparation of the second week, create a cheat sheet of the most important takeaways from what you have learned in Datacamp. To do so, open the notebook \texttt{cheatsheet.ipynb} and complete it.
+    \item Commit and push your changes, then close \textbf{VS Code} (the browser tab/window).
 \end{enumerate}
-
 \end{document}
