@@ -15,14 +15,14 @@
 Open the notebook \texttt{otsu.ipynb} and extend it as follows:
 
 \begin{enumerate}
-    \item Load the image from: \texttt{imgf = imread('../data/NIH3T3/im/dna-0.png')}.\\ The intensities of this image range from 0 to 1.
+    \item Load the image from: \texttt{imgf = plt.imread('../data/NIH3T3/im/dna-0.png')}.\\ The intensities of this image range from 0 to 1.
     \item Quantize the image into 256 bins:
 \begin{Verbatim}[frame=single]
-img8 = (imgf * 255).round().astype(numpy.uint8)
+img8 = (imgf * 255).round().astype(np.uint8)
 \end{Verbatim}
     \item Compute the histogram \texttt{h} of \texttt{img8} such that, for example, \texttt{h[0]} corresponds to the number of image pixels with intensity 0 and \texttt{h[255]} corresponds to the number of image pixels with intensity 255 -- \textbf{Hint:} ``\texttt{img8 == i}'' yields a binary image, which corresponds to the set of all points with intensity \texttt{i}.
     
-    \textbf{Note:} Do \emph{not} use pre-defined functions like \texttt{hist} or \texttt{plt.hist}, but implement the computation of the histogram \emph{yourself}. To accomplish that, the occurrences of the different intensity values in the image \texttt{img8} must be \emph{counted}. For counting, \texttt{h} should be initialized as a \emph{flat} array with 256 entries (e.g., ``\texttt{numpy.zeros(256)}'').
+    \textbf{Note:} Do \emph{not} use pre-defined functions like \texttt{hist} or \texttt{plt.hist}, but implement the computation of the histogram \emph{yourself}. To accomplish that, the occurrences of the different intensity values in the image \texttt{img8} must be \emph{counted}. For counting, \texttt{h} should be initialized as a \emph{flat} array with 256 entries (e.g., ``\texttt{np.zeros(256)}'').
     
     After counting, \texttt{h} corresponds to the histogram of \texttt{img8}, and the code below can be used to show the histogram:
 \begin{Verbatim}[frame=single]
@@ -57,7 +57,7 @@ Open the notebook \texttt{otsu\_batch.ipynb} and extend it as follows:
     
     \item Write a \texttt{for}-loop which iterates the sequence $\texttt{i} = 28,29,33,44,46,49$ and
     \begin{enumerate}
-        \item loads the $\texttt{i}$-th image via \texttt{imread(f'../data/NIH3T3/im/dna-\{i\}.png')},
+        \item loads the $\texttt{i}$-th image via \texttt{plt.imread(f'../data/NIH3T3/im/dna-\{i\}.png')},
         \item loads the corresponding ground truth from \texttt{f'../data/NIH3T3/gt/\{i\}.png'},
         \item performs Otsu thresholding,
         \item computes the Dice coefficient of the segmentation result.

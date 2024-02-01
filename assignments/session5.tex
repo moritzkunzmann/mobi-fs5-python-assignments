@@ -56,7 +56,7 @@ clf = make_pipeline(StandardScaler(), \
     \begin{enumerate}
         \item Using the function \texttt{create\_data\_matrix} implemented before, generate the data matrices for the two images \texttt{../data/NIH3T3/im/dna-33.png} and \texttt{dna-44.png}.
         \item Use \texttt{create\_gt\_labels\_vector} to generate the label vectors based on the corresponding ground truth images \texttt{../data/NIH3T3/gt/33.png} and \texttt{44.png}.
-        \item Stack the two data matrices and the two corresponding label vectors, but only keeping those rows of the data matrices and the label vectors, where the corresponding label is $-1$ or $+1$ (i.e.\ discard rows where the label is $0$) -- \textbf{Hint:} You can use \texttt{numpy.concatenate}\footnote{\mbox{\url{https://numpy.org/doc/stable/reference/generated/numpy.concatenate.html}}} to perform the stacking.
+        \item Stack the two data matrices and the two corresponding label vectors, but only keeping those rows of the data matrices and the label vectors, where the corresponding label is $-1$ or $+1$ (i.e.\ discard rows where the label is $0$) -- \textbf{Hint:} You can use \texttt{np.concatenate}\footnote{\mbox{\url{https://numpy.org/doc/stable/reference/generated/numpy.concatenate.html}}} to perform the stacking.
         \item Use ``\texttt{clf.fit(X, Y)}'' to train the classifier, where \texttt{X} is the stacked data matrix and \texttt{Y} is the stacked label vector. The duration of the training depends on your computer, but should be complete within a few seconds.
     \end{enumerate}
     \item Implement the function \texttt{predict\_image}, which takes an image as the parameter and performs segmentation using the trained classifier \texttt{clf}. To this end, the function
@@ -68,7 +68,7 @@ clf = make_pipeline(StandardScaler(), \
     Afterwards, test your implementation for the image \texttt{dna-0.png}. You can use the pre-implemented function \texttt{blend\_result} to visualize the segmentation results:
 \begin{Verbatim}[frame=single]
 figure()
-img = imread(f'../data/NIH3T3/im/dna-0.png')
+img = plt.imread(f'../data/NIH3T3/im/dna-0.png')
 seg = predict_image(img)
 imshow(blend_result(img, seg))
 \end{Verbatim}
@@ -76,7 +76,7 @@ imshow(blend_result(img, seg))
     \begin{samepage}
     \item Write a \texttt{for}-loop which iterates the sequence $\texttt{i} = 28,29,33,44,46,49$ and
     \begin{enumerate}
-        \item loads the $\texttt{i}$-th image via \texttt{imread(f'../data/NIH3T3/im/dna-\{i\}.png')},
+        \item loads the $\texttt{i}$-th image via \texttt{plt.imread(f'../data/NIH3T3/im/dna-\{i\}.png')},
         \item loads the corresponding ground truth from \texttt{f'../data/NIH3T3/gt/\{i\}.png'},
         \item performs patch-based segmentation by using the function \texttt{predict\_image},
         \item computes the Dice coefficient of the segmentation result.
