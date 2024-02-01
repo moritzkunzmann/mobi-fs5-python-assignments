@@ -15,7 +15,7 @@
 Open the notebook \texttt{otsu.ipynb} and extend it as follows:
 
 \begin{enumerate}
-    \item Load the image from: \texttt{imgf = plt.imread('../data/NIH3T3/im/dna-0.png')}.\\ The intensities of this image range from 0 to 1.
+    \item Load the image from: \texttt{imgf = plt.imread('data/NIH3T3/im/dna-0.png')}.\\ The intensities of this image range from 0 to 1.
     \item Quantize the image into 256 bins:
 \begin{Verbatim}[frame=single]
 img8 = (imgf * 255).round().astype(np.uint8)
@@ -51,14 +51,14 @@ Open the notebook \texttt{otsu\_batch.ipynb} and extend it as follows:
 \begin{enumerate}
     \item In the previous task, you have implemented the method of Otsu and performed Otsu thresholding for a single image. Now, make this code \emph{re-usable} by putting it into a \emph{function} which you can use anytime later. For your convenience, a skeleton of the code you need to write to implement the function is already added to the notebook.
     \item Implement a re-usable function to compute the Dice coefficient using the skeleton in the notebook.
-    \item Test your implementations by using the two functions to perform Otsu thresholding of the image \texttt{'../data/NIH3T3/im/dna-0.png'} and compute the corresponding Dice coefficient. \emph{The Dice coefficient should be the same as in Task~\ref{task:otsu}!} If it is not, look for a mistake you have made and fix it.
+    \item Test your implementations by using the two functions to perform Otsu thresholding of the image \texttt{'data/NIH3T3/im/dna-0.png'} and compute the corresponding Dice coefficient. \emph{The Dice coefficient should be the same as in Task~\ref{task:otsu}!} If it is not, look for a mistake you have made and fix it.
 
     \textbf{Note:} The function ``\texttt{compute\_dice}'' takes two parameters, which must correspond to \emph{binary} images. If you encounter an \texttt{AssertionError} in this function, one of the images used as the parameters of the function is not binary. You can use the method ``\texttt{.astype(bool)}'' to obtain a binary representation of an image.
     
     \item Write a \texttt{for}-loop which iterates the sequence $\texttt{i} = 28,29,33,44,46,49$ and
     \begin{enumerate}
-        \item loads the $\texttt{i}$-th image via \texttt{plt.imread(f'../data/NIH3T3/im/dna-\{i\}.png')},
-        \item loads the corresponding ground truth from \texttt{f'../data/NIH3T3/gt/\{i\}.png'},
+        \item loads the $\texttt{i}$-th image via \texttt{plt.imread(f'data/NIH3T3/im/dna-\{i\}.png')},
+        \item loads the corresponding ground truth from \texttt{f'data/NIH3T3/gt/\{i\}.png'},
         \item performs Otsu thresholding,
         \item computes the Dice coefficient of the segmentation result.
     \end{enumerate}

@@ -44,7 +44,7 @@ plt.imshow(phase, 'gray')
 \begin{samepage}
 \item Study the role of the amplitude and the phase:
 \begin{enumerate}
-    \item Load the image \texttt{../data/lena.png}.
+    \item Load the image \texttt{data/lena.png}.
     \item Apply the FFT, do a shift, then extract and display phase and amplitude.
     \item Compose a merged image by ``restoring'' it from the amplitude of the Lena image and the phase of the cell image. To this end, first convert the amplitude and phase to a Cartesian complex array using the pre-implemented function \texttt{to\_complex\_array}. Be careful to \emph{consistently} either use only the shifted or the non-shifted amplitude and phase, when merging. Reverse the shift if you used the shifted values and do the IFFT. Show the result.
     \item Repeat the previous step vice versa (use the amplitude of the cell image and the phase of the Lena image).

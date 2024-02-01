@@ -19,7 +19,7 @@ Above, we described how to open, save, and close a Jupyter notebook, now proceed
     \item Open VS Code in a GitHub Codespace (see Task~2 of the Introduction) using the repository which you created before (see Task~1 of the Introduction).
     \item Open the Jupyter notebook \texttt{segm\_threshold.ipynb} and extend it as follows:
     \begin{enumerate}
-        \item Use \texttt{plt.imread('../data/NIH3T3/im/dna-0.png')} to load an image -- \textbf{Note}: The \texttt{data} directory resides in the \emph{parent} directory of where the notebook file is located. The token ``\texttt{..}'' in a path represents the parent directory.
+        \item Use \texttt{plt.imread('data/NIH3T3/im/dna-0.png')} to load an image.
         \item Use \texttt{plt.figure()} (or, e.g., \texttt{plt.figure(figsize=(15,8))} if you want to specify the size of the figure) to add a \emph{figure} to a code cell of the notebook. Then, \emph{within the same code cell}, use \texttt{imshow} to display the image within the figure. In addition, use \texttt{colorbar()} after the \texttt{imshow}-instruction to include a legend of the color encoding.
         \item Recall that given a threshold $T$, each pixel $x,y$ of the image with an intensity value $g\left(x,y\right)$ greater or equal the threshold $T$ is assigned the value $1$ and each pixel with a value less than $T$ is assigned the value $0$:
         \begin{align*}
@@ -52,7 +52,7 @@ Above, we described how to open, save, and close a Jupyter notebook, now proceed
             \item In Python, sets of image points are conveniently represented as \emph{binary} images (a pixel value is set to \texttt{True} if the set contains that pixel and to \texttt{False} otherwise). An image \texttt{img} is binary if \texttt{img.dtype} is \texttt{bool}.
             \item If \texttt{G} is the \emph{binary} image representing the set $G$, then \texttt{G.sum()} yields the \emph{cardinality} $\left|G\right|$ of that set.
             \item If \texttt{G} and \texttt{H} are the two \emph{binary} images representing the sets $G$ and $H$, then ``\texttt{G * H}'' yields the binary image representing $G \cap H$.
-            \item Use ``\texttt{plt.imread('../data/NIH3T3/gt/0.png')}'' to load the ground truth.
+            \item Use ``\texttt{plt.imread('data/NIH3T3/gt/0.png')}'' to load the ground truth.
         \end{enumerate}
     \end{enumerate}
     \item Save and close the notebook. Then, shut down the notebook server.
@@ -63,7 +63,7 @@ Above, we described how to open, save, and close a Jupyter notebook, now proceed
 
 As in Task~\ref{task:threshold_segm}, open the notebook \texttt{sobel.ipynb}. Extend it as follows:
 \begin{enumerate}
-    \item Use \texttt{plt.imread} and \texttt{plt.imshow} to load and show the image \texttt{../data/lena.png}.
+    \item Use \texttt{plt.imread} and \texttt{plt.imshow} to load and show the image \texttt{data/lena.png}.
     \item Compute the partial derivatives $g_x$ and $g_y$ by \emph{convolving} the image $g\left(x,y\right)$ with Sobel derivative operators (see Figure~\ref{fig:sobel}). To this end, implement the re-usable functions \texttt{sobel\_h} and \texttt{sobel\_v}. The functions are supposed to compute and return the \emph{convolution} of the input image \texttt{img} with the horizontal and vertical Sobel derivative operators, respectively.
     \begin{figure}[h!]
         \centering
