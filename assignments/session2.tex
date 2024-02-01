@@ -26,8 +26,8 @@ img8 = (imgf * 255).round().astype(np.uint8)
     
     After counting, \texttt{h} corresponds to the histogram of \texttt{img8}, and the code below can be used to show the histogram:
 \begin{Verbatim}[frame=single]
-figure(figsize=(14,5))
-bar(range(256), h, width=1)
+plt.figure(figsize=(14,5))
+plt.bar(range(256), h, width=1)
 \end{Verbatim}
     \item Compute the optimal intensity threshold $T$ by implementing the \textbf{method of Otsu},
     \begin{gather}
