@@ -39,7 +39,7 @@ Above, we described how to open, save, and close a Jupyter notebook, now proceed
         \begin{samepage}
         \item Binarize the loaded image by applying \textbf{intensity thresholding}. Adjust the threshold such that your result looks similar to Figure~\ref{fig:nih3t3-im00-bingt} -- \textbf{Hints:}
         \begin{enumerate}
-            \item When working with objects of the type \texttt{numpy.ndarray} (e.g., images), mathematical operations are \emph{propagated} to the intensity values of the image. For example, if $g$ is the image \texttt{img} and $T$ is the intensity threshold \texttt{thres}, then the formal expression $g_\text{threshold}$ corresponds to ``\texttt{img >= thres}'' in Python.
+            \item When working with objects of the type \texttt{np.ndarray} (e.g., images), mathematical operations are \emph{propagated} to the intensity values of the image. For example, if $g$ is the image \texttt{img} and $T$ is the intensity threshold \texttt{thres}, then the formal expression $g_\text{threshold}$ corresponds to ``\texttt{img >= thres}'' in Python.
             \item Exploiting propagation of mathematical expressions is \emph{faster} than writing loops. More importantly, it is also \emph{less cumbersome} and \emph{less prone to programming mistakes}. Always avoid writing loops when propagation of mathematical expressions can be used instead!
         \end{enumerate}
         \end{samepage}
