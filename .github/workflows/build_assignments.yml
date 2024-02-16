@@ -77,7 +77,9 @@ jobs:
           name: document
           path: sources/main.pdf
 
-      - uses: actions/github-script@v3
+      - name: Paste document download link into pull request
+        uses: actions/github-script@v3
+        if: github.event_name == 'pull_request'
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
