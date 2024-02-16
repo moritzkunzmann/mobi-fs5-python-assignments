@@ -71,10 +71,22 @@ jobs:
           working_directory: sources
 
       - name: Upload LaTeX document
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
+        id: document-upload-step
         with:
           name: document
           path: sources/main.pdf
+
+      - uses: actions/github-script@v3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'Document built successfully: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts/${{ steps.document-upload-step.outputs.artifact-id }}'
+            })
 
   publish_document:
     runs-on: ubuntu-latest
