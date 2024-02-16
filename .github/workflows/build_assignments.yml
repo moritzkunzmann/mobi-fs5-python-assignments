@@ -67,7 +67,7 @@ jobs:
       - name: Build LaTeX document
         uses: xu-cheng/latex-action@v3
         with:
-          root_file: main.tex
+          root_file: assignments.tex
           working_directory: sources
 
       - name: Upload LaTeX document
@@ -75,9 +75,11 @@ jobs:
         id: document-upload-step
         with:
           name: document
-          path: sources/main.pdf
+          path: sources/assignments.pdf
 
-      - uses: actions/github-script@v3
+      - name: Paste document download link into pull request
+        uses: actions/github-script@v3
+        if: github.event_name == 'pull_request'
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
@@ -124,6 +126,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} 
-          asset_path: main.pdf
+          asset_path: assignments.pdf
           asset_name: assignments.pdf
           asset_content_type: pdf
