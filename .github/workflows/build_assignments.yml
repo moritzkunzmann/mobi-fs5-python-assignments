@@ -14,6 +14,7 @@ jobs:
 
   fetch_sources:
     runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' || github.ref_name == 'current' || startsWith(github.ref_name, 'future-')
     steps:
 
       - name: Initialize
