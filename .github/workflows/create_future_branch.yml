@@ -24,4 +24,4 @@ jobs:
       - name: Create and initialize future branch
         uses: kostrykin/create-future-branch-action@master
         with:
-          init: '' #python .github/init-future-branch.py
+          init: python .github/init-future-branch.py
