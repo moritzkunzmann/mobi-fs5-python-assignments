@@ -25,4 +25,3 @@ jobs:
         uses: kostrykin/create-future-branch-action@master
         with:
           init: python .github/init-future-branch.py
-          push_options: --force
