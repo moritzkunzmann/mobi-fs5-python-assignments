@@ -14,7 +14,7 @@
 \section{Intensity thresholding and Dice coefficient}
 \label{task:threshold_segm}
 
-Above, we described how to open, save, and close a Jupyter notebook, now proceed with the tasks below.
+Above, we described how to use Codespaces, work with Jupyter notebooks, and commit and push your changes to your GitHub repository. Now proceed with the tasks below.
 \begin{enumerate}
     \item Open VS Code in a GitHub Codespace (see Task~2 of the Introduction) using the repository which you created before (see Task~1 of the Introduction).
     \item Open the Jupyter notebook \texttt{segm\_threshold.ipynb} and extend it as follows:
@@ -55,13 +55,13 @@ Above, we described how to open, save, and close a Jupyter notebook, now proceed
             \item Use ``\texttt{plt.imread('data/NIH3T3/gt/0.png')}'' to load the ground truth.
         \end{enumerate}
     \end{enumerate}
-    \item Save and close the notebook. Then, shut down the notebook server.
+    \item Commit and push your changes. Remember to this regularly!
 \end{enumerate}
 
 \begin{samepage}
 \section{Sobel filter \bonustask}
 
-As in Task~\ref{task:threshold_segm}, open the notebook \texttt{sobel.ipynb}. Extend it as follows:
+Open the notebook \texttt{sobel.ipynb}. Extend it as follows:
 \begin{enumerate}
     \item Use \texttt{plt.imread} and \texttt{plt.imshow} to load and show the image \texttt{data/lena.png}.
     \item Compute the partial derivatives $g_x$ and $g_y$ by \emph{convolving} the image $g\left(x,y\right)$ with Sobel derivative operators (see Figure~\ref{fig:sobel}). To this end, implement the re-usable functions \texttt{sobel\_h} and \texttt{sobel\_v}. The functions are supposed to compute and return the \emph{convolution} of the input image \texttt{img} with the horizontal and vertical Sobel derivative operators, respectively.
