@@ -61,7 +61,7 @@ Above, we described how to use Codespaces, work with Jupyter notebooks, and comm
 \begin{samepage}
 \section{Sobel filter \bonustask}
 
-As in Task~\ref{task:threshold_segm}, open the notebook \texttt{sobel.ipynb}. Extend it as follows:
+Open the notebook \texttt{sobel.ipynb}. Extend it as follows:
 \begin{enumerate}
     \item Use \texttt{plt.imread} and \texttt{plt.imshow} to load and show the image \texttt{data/lena.png}.
     \item Compute the partial derivatives $g_x$ and $g_y$ by \emph{convolving} the image $g\left(x,y\right)$ with Sobel derivative operators (see Figure~\ref{fig:sobel}). To this end, implement the re-usable functions \texttt{sobel\_h} and \texttt{sobel\_v}. The functions are supposed to compute and return the \emph{convolution} of the input image \texttt{img} with the horizontal and vertical Sobel derivative operators, respectively.
