@@ -6,7 +6,7 @@
 1. Fork this repository
 2. Update the code (locally or using a codespace)
 3. Create a pull request to merge your changes back
-4. Wait for the CI to [release the PDF](https://github.com/BMCV/mobi-fs5-python-tasks/releases)
+4. Wait for the CI to [release the PDF](https://github.com/BMCV/mobi-fs5-python-assignments/releases)
 
 **If you want to make some changes for the next year:**
 1. Update the code (as described above)
