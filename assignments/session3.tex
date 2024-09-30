@@ -18,7 +18,7 @@ Open the notebook \texttt{fourier.ipynb} and extend it as follows:
 \begin{enumerate}
 \item Explore the Fourier transform by following these steps:
 \begin{enumerate}
-    \item Load the first image as given in the notebook, resize it to (256, 256) pixels using the \texttt{resize()} function, and show the result.
+    \item Load the first image\footnote{\url{https://www.cellpose.org/dataset}} as given in the notebook, resize it to (256, 256) pixels using the \texttt{resize()} function, and show the result.
     \item Apply the \emph{fast Fourier transform} (FFT) to the image:
     \begin{Verbatim}[frame=single]
 cell_ft = np.fft.fft2(cell_img)
@@ -44,10 +44,10 @@ plt.imshow(phase, 'gray')
 \begin{samepage}
 \item Study the role of the amplitude and the phase:
 \begin{enumerate}
-    \item Load the image \texttt{data/lena.png}.
+    \item Load the image \texttt{data/brain\_ct.png}\footnote{\url{https://brain-development.org/ixi-dataset}}.
     \item Apply the FFT, do a shift, then extract and display phase and amplitude.
-    \item Compose a merged image by ``restoring'' it from the amplitude of the Lena image and the phase of the cell image. To this end, first convert the amplitude and phase to a Cartesian complex array using the pre-implemented function \texttt{to\_complex\_array}. Be careful to \emph{consistently} either use only the shifted or the non-shifted amplitude and phase, when merging. Reverse the shift if you used the shifted values and do the IFFT. Show the result.
-    \item Repeat the previous step vice versa (use the amplitude of the cell image and the phase of the Lena image).
+    \item Compose a merged image by ``restoring`` it from the amplitude of the brain image and the phase of the cell image. To this end, first convert the amplitude and phase to a Cartesian complex array using the pre-implemented function \texttt{to\_complex\_array}. Be careful to \emph{consistently} either use only the shifted or the non-shifted amplitude and phase, when merging. Reverse the shift if you used the shifted values and do the IFFT. Show the result.
+    \item Repeat the previous step vice versa (use the amplitude of the cell image and the phase of the brain image).
     \item Conclude, \emph{what carries more information}, the phase or the amplitude?
 \end{enumerate}
 \end{samepage}
@@ -59,12 +59,12 @@ plt.imshow(phase, 'gray')
             \includegraphics[width=0.25\textwidth]{images/low_pass_filter.png}
         \end{figure}
     \item Also create a high-pass filter mask -- \textbf{Hint:} You can use ``one minus the low-pass mask'' to achieve this.
-    \item Now apply your masks by multiplying them with the shifted amplitude of the Lena image. Display the shifted amplitude without any filter, the low pass-filtered, and the high pass-filtered image side by side. Scale the amplitudes logarithmically.
-    \item Merge the filtered amplitudes with the phase of the Lena image to a complex array. Reverse the shift and apply the IFFT. Show the original image, the low pass-filtered, and the high pass-filtered merged images side by side.
+    \item Now apply your masks by multiplying them with the shifted amplitude of the brain image. Display the shifted amplitude without any filter, the low pass-filtered, and the high pass-filtered image side by side. Scale the amplitudes logarithmically.
+    \item Merge the filtered amplitudes with the phase of the brain image to a complex array. Reverse the shift and apply the IFFT. Show the original image, the low pass-filtered, and the high pass-filtered merged images side by side.
     \item Repeat the above steps using different filter sizes and observe the differences.
 \end{enumerate}
 \begin{samepage}
-\item Implement your own DFT function and compare the result as well as the run time to the implementation from numpy:
+\item Implement your own DFT function and compare the result as well as the run time to the implementation from \texttt{numpy}:
 \begin{enumerate}
     \item Implement a re-usable function that computes the DFT, i.e. 
      \begin{gather}
@@ -80,12 +80,12 @@ dft = np.zeros(img.shape, dtype=complex)
     \begin{gather}
         \texttt{idft}[u, v] = \sum_{x=0}^{M-1} \sum_{y=0}^{N-1} \texttt{dft}[x, y] e^{2j\pi (\frac{ux}{M}+\frac{vy}{N})}
     \end{gather}
-    \item Try your implementation using the Lena image and display amplitude and phase. -- \textbf{Hint:} You can still use the \texttt{fftshift} function after using your DFT.
+    \item Try your implementation using the brain image and display amplitude and phase. -- \textbf{Hint:} You can still use the \texttt{fftshift} function after using your DFT.
     \item Reconstruct the image using your IDFT implementation and display the result.
-    \item The FFT is an efficient algorithm to compute the DFT. Compare your results to those obtained using the FFT from numpy, which you used for the previous tasks. Apply the FFT as well as your DFT implementation to the Lena image. Then, compare the results using \texttt{np.allclose}. -- \textbf{Note:} You must use the parameter \texttt{norm='forward'} for the \texttt{np.fft.fft2} function to obtain identical results. The reason is that there are slightly different definitions\footnote{\url{https://numpy.org/doc/stable/reference/routines.fft.html\#implementation-details}} of the DFT and using \texttt{norm='forward'} enforces the definition from Eq.~\eqref{eq:dft}.
+    \item The FFT is an efficient algorithm to compute the DFT. Compare your results to those obtained using the FFT from \texttt{numpy}, which you used for the previous tasks. Apply the FFT as well as your DFT implementation to the brain image. Then, compare the results using \texttt{np.allclose}. -- \textbf{Note:} You must use the parameter \texttt{norm='forward'} for the \texttt{np.fft.fft2} function to obtain identical results. The reason is that there are slightly different definitions\footnote{\url{https://numpy.org/doc/stable/reference/routines.fft.html\#implementation-details}} of the DFT and using \texttt{norm='forward'} enforces the definition from Eq.~\eqref{eq:dft}.
     \item Compute the mean difference between the results of the two algorithms by \texttt{np.mean(np.abs(own\_dft - np\_fft))}. Afterwards, round the DFT and the FFT arrays using \texttt{np.round(array, 5)}, where 5 is the number of decimals to maintain.
     Compare the arrays using \texttt{(own\_dft == np\_fft).all()}. This statement returns \texttt{True} if all values of the arrays match. Select the number of decimals in such a way that you round as few as possible while the arrays are still matching.
-    \item Compare the run times of your DFT implementation to the FFT implementation from numpy using the \texttt{\%timeit} command.
+    \item Compare the run times of your DFT implementation to the FFT implementation from \texttt{numpy} using the \texttt{\%timeit} command.
 \end{enumerate}
 \end{samepage}
 \end{enumerate}
