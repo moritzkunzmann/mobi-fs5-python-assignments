@@ -21,9 +21,8 @@ jobs:
       - name: Initialize
         uses: actions/checkout@v4
 
-      - uses: kostrykin/build-latex-document-action@v2.1.1
+      - uses: kostrykin/build-latex-document-action@v2.2.0
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
           working_directory: assignments
           document_filename: assignments.pdf
           sources: |

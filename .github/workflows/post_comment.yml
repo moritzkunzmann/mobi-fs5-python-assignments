@@ -1,0 +1,17 @@
+name: Post pull request comment
+
+on:
+  workflow_run:
+    workflows: [Build assignemnts.pdf document]
+    types: [completed]
+
+jobs:
+
+  post_pr_comment:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+
+      - uses: kostrykin/build-latex-document-action@v2.2.0
